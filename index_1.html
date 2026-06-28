@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Smartlend - Vay Mua Nhà Thông Minh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0B2447;--navy-mid:#19376D;--teal:#0C7B93;--gold:#D4A853;
+  --gold-light:#F0C97A;--white:#FFFFFF;--gray-100:#F4F6FA;--gray-200:#E8ECF4;
+  --gray-400:#9AA3B8;--gray-600:#5A6480;--green:#1A9E5C;--red:#D93025;--yellow:#E8A020;
+  --radius:12px;--radius-sm:8px;--shadow:0 4px 24px rgba(11,36,71,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:#fff;color:#1a2340;overflow-x:hidden;}
+h1,h2,h3{font-family:'Playfair Display',serif;}
+
+/* HEADER */
+#site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:var(--navy);padding:0 5%;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid transparent;transition:border-color .3s;
+}
+#site-header.scrolled{border-bottom-color:rgba(212,168,83,.35);}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-sq{width:38px;height:38px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);}
+.logo-text{font-size:20px;font-weight:700;color:#fff;}
+.logo-text span{color:var(--gold);}
+nav a{color:rgba(255,255,255,.8);text-decoration:none;font-size:14px;font-weight:500;margin-left:28px;transition:color .2s;}
+nav a:hover{color:var(--gold);}
+.btn-cta{background:var(--gold);color:var(--navy);padding:9px 22px;border-radius:50px;font-weight:700;font-size:14px;text-decoration:none;margin-left:20px;}
+.btn-cta:hover{background:var(--gold-light);}
+.desktop-nav{display:flex;align-items:center;}
+
+/* HERO */
+#hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#0d4a6e 100%);
+  padding:120px 5% 80px;min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+}
+#hero::before{content:'';position:absolute;top:-100px;right:-150px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(12,123,147,.25) 0%,transparent 70%);}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,83,.15);border:1px solid rgba(212,168,83,.4);color:var(--gold);padding:6px 16px;border-radius:50px;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:24px;}
+.hero h1{font-size:clamp(32px,4.5vw,56px);color:#fff;line-height:1.2;margin-bottom:20px;}
+.hero h1 span{color:var(--gold);}
+.hero-sub{color:rgba(255,255,255,.7);font-size:17px;line-height:1.7;margin-bottom:36px;}
+.hero-stats{display:flex;gap:32px;margin-bottom:40px;flex-wrap:wrap;}
+.stat-num{font-size:28px;font-weight:800;color:var(--gold);}
+.stat-lbl{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{background:var(--gold);color:var(--navy);padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;border:none;cursor:pointer;transition:all .2s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4);cursor:pointer;transition:all .2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* CALC CARD */
+.calc-card{background:rgba(255,255,255,.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:28px;}
+.calc-card h3{color:#fff;font-size:18px;margin-bottom:22px;}
+.calc-result{background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.3);border-radius:12px;padding:18px;text-align:center;margin-bottom:20px;}
+.calc-result-label{color:rgba(255,255,255,.6);font-size:12px;margin-bottom:6px;}
+.calc-result-amount{font-size:30px;font-weight:800;color:var(--gold);}
+.calc-result-sub{color:rgba(255,255,255,.5);font-size:12px;margin-top:4px;}
+.slider-group{margin-bottom:16px;}
+.slider-group label{display:flex;justify-content:space-between;color:rgba(255,255,255,.75);font-size:13px;margin-bottom:8px;}
+.slider-group label span{color:var(--gold);font-weight:600;}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:rgba(255,255,255,.2);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid #fff;}
+
+/* SECTIONS */
+.section{padding:80px 5%;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-label{color:var(--teal);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;display:block;}
+.section-title{font-size:clamp(26px,3vw,40px);color:var(--navy);margin-bottom:16px;}
+.section-sub{color:var(--gray-600);font-size:16px;line-height:1.7;max-width:600px;}
+.section-head{margin-bottom:52px;}
+
+/* FEATURES */
+#features{background:var(--gray-100);}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.feat-card{background:#fff;border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);border:1px solid var(--gray-200);transition:transform .2s,box-shadow .2s;}
+.feat-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(11,36,71,.15);}
+.feat-icon{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px;}
+.feat-card h4{font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:16px;color:var(--navy);margin-bottom:10px;}
+.feat-card p{color:var(--gray-600);font-size:14px;line-height:1.6;}
+
+/* CONDITIONS */
+.cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.cond-card{background:var(--gray-100);border-radius:var(--radius);padding:28px;border-left:4px solid var(--gold);}
+.cond-card h4{font-family:'Be Vietnam Pro',sans-serif;font-weight:700;font-size:16px;color:var(--navy);margin-bottom:16px;}
+.cond-card ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.cond-card ul li{font-size:14px;color:var(--gray-600);padding-left:24px;position:relative;line-height:1.5;}
+.cond-card ul li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700;font-size:13px;top:0;}
+.law-ref{margin-top:32px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:var(--radius);padding:24px 28px;}
+.law-ref p{color:rgba(255,255,255,.6);font-size:12px;margin-bottom:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.law-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.law-tag{background:rgba(212,168,83,.2);border:1px solid rgba(212,168,83,.4);color:var(--gold);padding:5px 12px;border-radius:50px;font-size:12px;font-weight:500;}
+
+/* TIMELINE */
+#process{background:var(--navy);}
+#process .section-title{color:#fff;}
+#process .section-label{color:var(--gold);}
+.timeline{display:flex;align-items:flex-start;gap:0;position:relative;margin-top:40px;}
+.tl-connector{flex:1;height:2px;background:linear-gradient(90deg,rgba(212,168,83,.6),rgba(212,168,83,.2));margin-top:35px;min-width:20px;}
+.tl-step{text-align:center;flex-shrink:0;width:120px;}
+.tl-dot{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(212,168,83,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;position:relative;}
+.tl-num{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.tl-title{color:#fff;font-size:12px;font-weight:600;margin-bottom:4px;}
+.tl-desc{color:rgba(255,255,255,.5);font-size:11px;line-height:1.4;}
+
+/* RATES TABLE */
+#rates{background:var(--gray-100);}
+.rate-table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);}
+.rate-table th{background:var(--navy);color:#fff;padding:16px 20px;font-size:13px;font-weight:600;text-align:left;}
+.rate-table td{padding:16px 20px;border-bottom:1px solid var(--gray-200);font-size:14px;color:var(--gray-600);}
+.rate-table tr:last-child td{border-bottom:none;}
+.rate-table tr:hover td{background:var(--gray-100);}
+.rate-badge{display:inline-block;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:700;}
+.rate-badge.low{background:#e8f9f0;color:var(--green);}
+.rate-badge.mid{background:#fff3e0;color:#e65c00;}
+.rate-badge.social{background:rgba(12,123,147,.1);color:var(--teal);}
+.rate-highlight{font-size:18px;font-weight:800;color:var(--navy);}
+
+/* WIZARD */
+#apply{background:linear-gradient(180deg,#f4f6fa 0%,#e8ecf4 100%);padding:80px 5%;}
+.wizard-wrap{max-width:820px;margin:0 auto;}
+.wizard-header{text-align:center;margin-bottom:48px;}
+
+/* Progress */
+.progress-bar{display:flex;align-items:flex-start;justify-content:center;gap:0;margin-bottom:48px;}
+.prog-step{display:flex;flex-direction:column;align-items:center;}
+.prog-dot{width:44px;height:44px;border-radius:50%;border:2px solid var(--gray-200);background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--gray-400);transition:all .3s;}
+.prog-dot.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+.prog-dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.prog-label{font-size:11px;color:var(--gray-400);margin-top:8px;font-weight:500;text-align:center;max-width:80px;}
+.prog-label.active{color:var(--navy);font-weight:700;}
+.prog-line{width:80px;height:2px;background:var(--gray-200);margin-top:22px;transition:background .3s;flex-shrink:0;}
+.prog-line.done{background:var(--green);}
+
+/* Panel */
+.wizard-panel{background:#fff;border-radius:20px;padding:40px;box-shadow:0 8px 48px rgba(11,36,71,.12);}
+.panel-title{font-family:'Be Vietnam Pro',sans-serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.panel-sub{color:var(--gray-600);font-size:14px;margin-bottom:28px;}
+
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:13px;font-weight:600;color:var(--navy);}
+.req{color:var(--red);}
+.form-control{padding:11px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:14px;font-family:'Be Vietnam Pro',sans-serif;color:#1a2340;transition:border-color .2s,box-shadow .2s;outline:none;background:#fff;width:100%;}
+.form-control:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(12,123,147,.12);}
+.form-control.is-error{border-color:var(--red);}
+.form-control.is-ok{border-color:var(--green);}
+.field-msg{font-size:12px;min-height:16px;}
+.field-msg.err{color:var(--red);}
+.field-msg.ok{color:var(--green);}
+.field-msg.warn{color:var(--yellow);}
+
+/* Upload */
+.upload-zones{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+.upload-zone{position:relative;border:2px dashed var(--gray-200);border-radius:var(--radius);padding:20px 14px;text-align:center;cursor:pointer;transition:all .2s;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#fafbff;}
+.upload-zone.uploaded{border:2px solid var(--green);background:#f0faf4;}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;z-index:2;cursor:pointer;width:100%;height:100%;}
+.upload-zone > *:not(input){pointer-events:none;}
+.upload-icon{font-size:26px;}
+.upload-lbl{font-size:13px;font-weight:600;color:var(--navy);}
+.upload-hint{font-size:11px;color:var(--gray-400);}
+.upload-badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:10px;font-weight:700;}
+.upload-badge.req{background:#fff0f0;color:var(--red);}
+.upload-badge.opt{background:#fff8e6;color:#b8860b;}
+.upload-fname{font-size:11px;color:var(--green);font-weight:600;word-break:break-all;margin-top:4px;}
+
+/* DSCR */
+.dscr-panel{background:var(--navy);border-radius:var(--radius);padding:20px 24px;margin:20px 0;}
+.dscr-panel h5{color:#fff;font-size:14px;font-weight:700;margin-bottom:14px;}
+.dscr-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.dscr-row span:first-child{color:rgba(255,255,255,.6);font-size:13px;}
+.dscr-row span:last-child{font-weight:700;font-size:14px;color:#fff;}
+.dscr-bar-wrap{height:8px;background:rgba(255,255,255,.15);border-radius:4px;margin:10px 0;}
+.dscr-bar{height:8px;border-radius:4px;transition:width .4s,background .4s;width:0%;}
+.dscr-label{text-align:center;font-size:13px;font-weight:700;margin-top:8px;color:rgba(255,255,255,.5);}
+
+/* Val summary */
+.val-summary{background:#fff5f5;border:1.5px solid #ffd0d0;border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:20px;display:none;}
+.val-summary.show{display:block;}
+.val-summary h5{color:var(--red);font-size:13px;font-weight:700;margin-bottom:10px;}
+.val-summary ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.val-summary ul li{font-size:13px;color:#c0392b;padding-left:16px;position:relative;}
+.val-summary ul li::before{content:'•';position:absolute;left:0;}
+
+/* Eligibility */
+.elig-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.elig-item{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--gray-100);border-radius:var(--radius-sm);}
+.elig-name{font-size:14px;color:var(--navy);font-weight:500;}
+.elig-detail{font-size:12px;color:var(--gray-400);margin-top:2px;}
+.elig-badge{padding:4px 14px;border-radius:50px;font-size:12px;font-weight:700;}
+.elig-badge.pass{background:#e8f9f0;color:var(--green);}
+.elig-badge.fail{background:#fff0f0;color:var(--red);}
+.elig-badge.warn{background:#fff8e6;color:var(--yellow);}
+.verdict-card{border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:24px;}
+.verdict-card.green{background:#e8f9f0;border:2px solid var(--green);}
+.verdict-card.yellow{background:#fff8e6;border:2px solid var(--yellow);}
+.verdict-card.red{background:#fff0f0;border:2px solid var(--red);}
+.verdict-icon{font-size:36px;margin-bottom:10px;}
+
+/* Checks */
+.check-group{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}
+.check-item{display:flex;align-items:flex-start;gap:12px;}
+.check-item input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy);flex-shrink:0;margin-top:2px;cursor:pointer;}
+.check-item label{font-size:13px;color:var(--gray-600);line-height:1.5;cursor:pointer;}
+
+/* Nav buttons */
+.wizard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;}
+.btn-back{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-600);padding:12px 28px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--navy);color:var(--navy);}
+.btn-next{background:var(--navy);color:#fff;border:none;padding:13px 36px;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-next:hover{background:var(--navy-mid);}
+.btn-submit{background:var(--gold);color:var(--navy);}
+.btn-submit:hover{background:var(--gold-light);}
+
+/* Success */
+.success-screen{text-align:center;padding:20px 0;}
+.success-anim{font-size:72px;margin-bottom:20px;animation:popIn .5s cubic-bezier(.36,1.6,.6,1) both;}
+@keyframes popIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+.ref-code{background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:#fff;border-radius:var(--radius);padding:20px;margin:20px 0;}
+.ref-code p{color:rgba(255,255,255,.6);font-size:12px;margin-bottom:6px;}
+.ref-code h3{font-size:22px;letter-spacing:2px;color:var(--gold);}
+.next-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.next-card{background:var(--gray-100);border-radius:var(--radius-sm);padding:20px;text-align:left;}
+.next-card .nc-icon{font-size:24px;margin-bottom:10px;}
+.next-card h5{font-family:'Be Vietnam Pro',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.next-card p{font-size:12px;color:var(--gray-600);line-height:1.5;}
+
+/* FAQ */
+#faq{background:#fff;}
+.faq-list{max-width:740px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.faq-item{border:1.5px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;font-weight:600;font-size:15px;color:var(--navy);transition:background .2s;user-select:none;}
+.faq-q:hover{background:var(--gray-100);}
+.faq-arrow{font-size:22px;color:var(--gold);transition:transform .3s;font-style:normal;}
+.faq-q.open .faq-arrow{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.faq-a.open{max-height:300px;}
+.faq-a-inner{padding:0 24px 20px;font-size:14px;color:var(--gray-600);line-height:1.7;}
+
+/* LEGAL BAR */
+#legal-bar{background:var(--navy-mid);padding:20px 5%;}
+.legal-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;}
+#legal-bar p{color:rgba(255,255,255,.5);font-size:11px;}
+.legal-pill{background:rgba(212,168,83,.15);border:1px solid rgba(212,168,83,.3);color:var(--gold);padding:4px 12px;border-radius:50px;font-size:11px;}
+
+/* FOOTER */
+footer{background:var(--navy);padding:40px 5%;color:rgba(255,255,255,.6);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+.footer-hotline{font-size:20px;font-weight:800;color:var(--gold);}
+.footer-copy{font-size:12px;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .calc-card{display:none;}
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .cond-grid{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .next-cards{grid-template-columns:1fr;}
+  .upload-zones{grid-template-columns:1fr !important;}
+  .desktop-nav{display:none;}
+  .prog-line{width:40px;}
+}
+@media(max-width:600px){
+  .features-grid{grid-template-columns:1fr;}
+  .wizard-panel{padding:24px 16px;}
+  .section{padding:56px 4%;}
+  .timeline{overflow-x:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header">
+  <a class="logo" href="#">
+    <div class="logo-sq">S</div>
+    <div class="logo-text">Smart<span>lend</span></div>
+  </a>
+  <div class="desktop-nav">
+    <nav>
+      <a href="#features">Tính năng</a>
+      <a href="#conditions">Điều kiện</a>
+      <a href="#process">Quy trình</a>
+      <a href="#rates">Lãi suất</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#apply" class="btn-cta">Đăng ký ngay</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🏆 Nền tảng vay mua nhà #1 Việt Nam</div>
+      <h1>Vay mua nhà <span>thông minh</span>, duyệt nhanh trong 24 giờ</h1>
+      <p class="hero-sub">Smartlend kết nối bạn với hơn 20 ngân hàng đối tác, kiểm định AI tự động, tuân thủ đầy đủ Thông tư 21/VBHN-NHNN 2024 và Luật Đất đai 2024.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">85%</div><div class="stat-lbl">Tỉ lệ duyệt vay</div></div>
+        <div class="stat"><div class="stat-num">5.9%</div><div class="stat-lbl">Lãi suất từ/năm</div></div>
+        <div class="stat"><div class="stat-num">30 năm</div><div class="stat-lbl">Thời hạn tối đa</div></div>
+        <div class="stat"><div class="stat-num">85%</div><div class="stat-lbl">LTV tối đa</div></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#apply" class="btn-primary">Đăng ký vay ngay</a>
+        <a href="#process" class="btn-outline">Xem quy trình</a>
+      </div>
+    </div>
+    <div class="calc-card">
+      <h3>Tính khoản vay nhanh</h3>
+      <div class="calc-result">
+        <div class="calc-result-label">Trả góp hàng tháng (ước tính)</div>
+        <div class="calc-result-amount" id="calc-monthly">0 đ</div>
+        <div class="calc-result-sub" id="calc-sub">Tổng vay: 0 đ | LTV: 0%</div>
+      </div>
+      <div class="slider-group">
+        <label>Giá trị bất động sản <span id="sl-val-out">3.000.000.000 đ</span></label>
+        <input type="range" id="sl-propval" min="500000000" max="20000000000" step="100000000" value="3000000000" oninput="calcHero()"/>
+      </div>
+      <div class="slider-group">
+        <label>Tỉ lệ vay (LTV%) <span id="sl-ltv-out">70%</span></label>
+        <input type="range" id="sl-ltv" min="10" max="85" step="5" value="70" oninput="calcHero()"/>
+      </div>
+      <div class="slider-group">
+        <label>Lãi suất/năm <span id="sl-rate-out">5.90%</span></label>
+        <input type="range" id="sl-rate" min="4.8" max="12" step="0.1" value="5.9" oninput="calcHero()"/>
+      </div>
+      <div class="slider-group">
+        <label>Thời hạn vay <span id="sl-term-out">20 năm</span></label>
+        <input type="range" id="sl-term" min="5" max="30" step="5" value="20" oninput="calcHero()"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Tính năng nổi bật</span>
+      <h2 class="section-title">Tại sao chọn Smartlend?</h2>
+      <p class="section-sub">Ứng dụng công nghệ AI giúp quy trình vay minh bạch, nhanh chóng và đúng pháp luật.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card"><div class="feat-icon">🤖</div><h4>Kiểm định AI tức thì</h4><p>Hệ thống AI tự động kiểm tra 8 tiêu chí tín dụng theo chuẩn Thông tư 21/VBHN-NHNN 2024 trong 15 phút.</p></div>
+      <div class="feat-card"><div class="feat-icon">💰</div><h4>Lãi suất ưu đãi từ 5.9%</h4><p>5 gói lãi suất linh hoạt, phù hợp mọi nhu cầu từ nhà ở xã hội đến bất động sản cao cấp.</p></div>
+      <div class="feat-card"><div class="feat-icon">⚖️</div><h4>Tuân thủ pháp lý 100%</h4><p>Tích hợp Luật Nhà ở 2023, Luật Đất đai 2024, AML Luật 14/2022/QH15 và GĐDT 20/2023/QH15.</p></div>
+      <div class="feat-card"><div class="feat-icon">🏠</div><h4>LTV lên đến 85%</h4><p>Tỉ lệ cho vay trên giá trị tài sản cao nhất thị trường, giảm áp lực vốn tự có.</p></div>
+      <div class="feat-card"><div class="feat-icon">📱</div><h4>Nộp hồ sơ trực tuyến</h4><p>Upload toàn bộ giấy tờ qua app, không cần đến chi nhánh. Ký số theo Luật GĐDT 20/2023.</p></div>
+      <div class="feat-card"><div class="feat-icon">👨‍💼</div><h4>Chuyên viên riêng</h4><p>Mỗi hồ sơ có 1 chuyên viên tín dụng phụ trách từ đầu đến khi giải ngân.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONDITIONS -->
+<section id="conditions" class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Điều kiện vay</span>
+      <h2 class="section-title">Tiêu chuẩn xét duyệt</h2>
+    </div>
+    <div class="cond-grid">
+      <div class="cond-card"><h4>📋 Điều kiện pháp lý</h4><ul>
+        <li>Công dân Việt Nam, độ tuổi 18–65 (Luật Nhà ở 2023)</li>
+        <li>CCCD/CMND còn hiệu lực, hộ khẩu/KT3 hợp lệ</li>
+        <li>Tài sản có Sổ đỏ/Sổ hồng đầy đủ (Luật Đất đai 2024)</li>
+        <li>Không có tranh chấp pháp lý về tài sản thế chấp</li>
+      </ul></div>
+      <div class="cond-card"><h4>💵 Điều kiện tài chính</h4><ul>
+        <li>Thu nhập hàng tháng tối thiểu 15 triệu VNĐ</li>
+        <li>Thâm niên công tác tối thiểu 6 tháng</li>
+        <li>Tỉ lệ DSCR (nợ/thu nhập) không vượt 40%</li>
+        <li>LTV tối đa 85% giá trị tài sản thẩm định</li>
+      </ul></div>
+      <div class="cond-card"><h4>📊 Lịch sử tín dụng (CIC)</h4><ul>
+        <li>Không có nợ xấu đang hoạt động (nhóm 3–5)</li>
+        <li>Nợ đã tất toán trước 12 tháng được xem xét</li>
+        <li>Tuân thủ quy định CIC theo TT 21/VBHN-NHNN 2024</li>
+      </ul></div>
+      <div class="cond-card"><h4>🏡 Tài sản thế chấp</h4><ul>
+        <li>Nhà ở, căn hộ, đất ở, đất nông nghiệp hợp lệ</li>
+        <li>Giá trị thẩm định tối thiểu 600 triệu VNĐ</li>
+        <li>Diện tích tối thiểu 20m², không trong vùng quy hoạch</li>
+        <li>Bảo hiểm tài sản thế chấp trong suốt thời hạn vay</li>
+      </ul></div>
+    </div>
+    <div class="law-ref">
+      <p>Căn cứ pháp lý</p>
+      <div class="law-tags">
+        <span class="law-tag">TT 21/VBHN-NHNN 2024</span>
+        <span class="law-tag">Luật Nhà ở 2023</span>
+        <span class="law-tag">Luật Đất đai 2024</span>
+        <span class="law-tag">Luật 14/2022/QH15 (AML)</span>
+        <span class="law-tag">Luật 20/2023/QH15 (GĐDT)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label" style="color:var(--gold);">Quy trình</span>
+      <h2 class="section-title">7 bước đến ngôi nhà mơ ước</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-dot">📝<div class="tl-num">1</div></div><div class="tl-title">Đăng ký online</div><div class="tl-desc">Điền hồ sơ và upload tài liệu</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">🤖<div class="tl-num">2</div></div><div class="tl-title">Kiểm định tức thì</div><div class="tl-desc">AI xét duyệt sơ bộ 15 phút</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">📊<div class="tl-num">3</div></div><div class="tl-title">Thẩm định tín dụng</div><div class="tl-desc">Chuyên viên review hồ sơ</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">🏠<div class="tl-num">4</div></div><div class="tl-title">Định giá tài sản</div><div class="tl-desc">Đơn vị thẩm định độc lập</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">✅<div class="tl-num">5</div></div><div class="tl-title">Phê duyệt</div><div class="tl-desc">Thông báo kết quả 24h</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">✍️<div class="tl-num">6</div></div><div class="tl-title">Ký hợp đồng</div><div class="tl-desc">Ký số theo Luật GĐDT 2023</div></div>
+      <div class="tl-connector"></div>
+      <div class="tl-step"><div class="tl-dot">💳<div class="tl-num">7</div></div><div class="tl-title">Giải ngân</div><div class="tl-desc">Chuyển tiền trong 2–5 ngày</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RATES -->
+<section id="rates" class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Bảng lãi suất</span>
+      <h2 class="section-title">5 gói lãi suất linh hoạt</h2>
+      <p class="section-sub">Áp dụng theo Thông tư 21/VBHN-NHNN 2024. Lãi suất có thể thay đổi theo thị trường.</p>
+    </div>
+    <table class="rate-table">
+      <thead><tr><th>Gói vay</th><th>Lãi suất</th><th>Thời hạn</th><th>LTV tối đa</th><th>Đặc điểm</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ưu đãi Vàng</strong></td><td><span class="rate-highlight">5.9%</span>/năm</td><td>5–15 năm</td><td>70%</td><td><span class="rate-badge low">Lãi thấp nhất</span></td></tr>
+        <tr><td><strong>Cân bằng</strong></td><td><span class="rate-highlight">6.5%</span>/năm</td><td>10–20 năm</td><td>75%</td><td><span class="rate-badge low">Phổ biến nhất</span></td></tr>
+        <tr><td><strong>Dài hạn</strong></td><td><span class="rate-highlight">7.2%</span>/năm</td><td>20–30 năm</td><td>80%</td><td><span class="rate-badge mid">Trả góp thấp</span></td></tr>
+        <tr><td><strong>Linh hoạt Max</strong></td><td><span class="rate-highlight">8.5%</span>/năm</td><td>5–30 năm</td><td>85%</td><td><span class="rate-badge mid">LTV cao nhất</span></td></tr>
+        <tr><td><strong>Nhà ở xã hội</strong></td><td><span class="rate-highlight">4.8%</span>/năm</td><td>15–25 năm</td><td>80%</td><td><span class="rate-badge social">Ưu đãi chính sách</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- WIZARD -->
+<section id="apply">
+  <div class="wizard-wrap">
+    <div class="wizard-header">
+      <span class="section-label" style="text-align:center;">Đăng ký vay</span>
+      <h2 class="section-title">Nộp hồ sơ trực tuyến</h2>
+      <p style="color:var(--gray-600);font-size:14px;margin-top:8px;">An toàn, bảo mật theo Luật Giao dịch điện tử 20/2023/QH15</p>
+    </div>
+    <div class="progress-bar" id="progress-bar">
+      <div class="prog-step">
+        <div class="prog-dot active" id="dot-1">1</div>
+        <div class="prog-label active" id="lbl-1">Cá nhân</div>
+      </div>
+      <div class="prog-line" id="line-1"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="dot-2">2</div>
+        <div class="prog-label" id="lbl-2">Tài chính</div>
+      </div>
+      <div class="prog-line" id="line-2"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="dot-3">3</div>
+        <div class="prog-label" id="lbl-3">Bất động sản</div>
+      </div>
+      <div class="prog-line" id="line-3"></div>
+      <div class="prog-step">
+        <div class="prog-dot" id="dot-4">4</div>
+        <div class="prog-label" id="lbl-4">Xét duyệt</div>
+      </div>
+    </div>
+    <div class="wizard-panel" id="wizard-panel"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section">
+  <div class="section-inner">
+    <div class="section-head" style="text-align:center;">
+      <span class="section-label" style="text-align:center;display:block;">Câu hỏi thường gặp</span>
+      <h2 class="section-title" style="text-align:center;">FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Hồ sơ vay cần những giấy tờ gì?</span><i class="faq-arrow">+</i></div>
+        <div class="faq-a"><div class="faq-a-inner">Bạn cần: CCCD/CMND 2 mặt, hộ khẩu hoặc KT3, hợp đồng lao động, 3–6 tháng sao kê lương, 3 tháng sao kê ngân hàng. Với tài sản thế chấp cần: Sổ đỏ/Sổ hồng, hợp đồng mua bán, bản đồ địa chính. Tất cả nộp online theo Luật GĐDT 20/2023/QH15.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Thời gian duyệt hồ sơ mất bao lâu?</span><i class="faq-arrow">+</i></div>
+        <div class="faq-a"><div class="faq-a-inner">Kiểm định AI sơ bộ trong 15 phút. Thẩm định tín dụng 1–3 ngày làm việc. Định giá tài sản 2–5 ngày. Tổng thời gian từ nộp hồ sơ đến phê duyệt thường là 5–10 ngày làm việc tùy độ phức tạp hồ sơ.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>DSCR là gì và ảnh hưởng thế nào đến hồ sơ?</span><i class="faq-arrow">+</i></div>
+        <div class="faq-a"><div class="faq-a-inner">DSCR (Debt Service Coverage Ratio) là tỉ lệ tổng nghĩa vụ nợ hàng tháng trên tổng thu nhập. Theo TT 21/VBHN-NHNN 2024, DSCR không được vượt 40%. Ví dụ: thu nhập 20 triệu/tháng, tổng trả nợ (cũ + mới) tối đa 8 triệu/tháng.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Tôi có nợ xấu CIC có vay được không?</span><i class="faq-arrow">+</i></div>
+        <div class="faq-a"><div class="faq-a-inner">Nợ xấu đang hoạt động (nhóm 3–5) sẽ bị từ chối theo quy định CIC. Nếu đã tất toán trước 12 tháng, hồ sơ vẫn được xem xét nhưng cần giải trình. Tất toán trong vòng 12 tháng sẽ nhận cảnh báo vàng và cần tài liệu bổ sung.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)"><span>Nhà đất chưa có Sổ đỏ/Sổ hồng có thế chấp được không?</span><i class="faq-arrow">+</i></div>
+        <div class="faq-a"><div class="faq-a-inner">Theo Luật Đất đai 2024 và Luật Nhà ở 2023, tài sản thế chấp phải có giấy chứng nhận quyền sử dụng đất (Sổ đỏ) hoặc quyền sở hữu nhà (Sổ hồng) đầy đủ. Tài sản chưa có sổ hoặc đang trong quá trình làm thủ tục sẽ không đủ điều kiện thế chấp tại Smartlend.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL BAR -->
+<div id="legal-bar">
+  <div class="legal-inner">
+    <p>Căn cứ pháp lý điều chỉnh:</p>
+    <span class="legal-pill">TT 21/VBHN-NHNN 2024</span>
+    <span class="legal-pill">Luật Nhà ở 2023</span>
+    <span class="legal-pill">Luật Đất đai 2024</span>
+    <span class="legal-pill">Luật 14/2022/QH15</span>
+    <span class="legal-pill">Luật 20/2023/QH15</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="logo-sq">S</div>
+      <div class="logo-text">Smart<span>lend</span></div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:4px;">Hotline hỗ trợ 24/7</div>
+      <div class="footer-hotline">1900 1234</div>
+    </div>
+    <div class="footer-copy">
+      <p>© 2026 Smartlend. Giấy phép hoạt động số 001/GP-NHNN.</p>
+      <p style="margin-top:4px;">Thông tin mang tính tham khảo, không phải cam kết cho vay.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== UTILS =====
+function fmtVND(n) {
+  return new Intl.NumberFormat('vi-VN').format(Math.round(n)) + ' đ';
+}
+function calcPMT(r, n, pv) {
+  if (r === 0) return pv / n;
+  return pv * r / (1 - Math.pow(1 + r, -n));
+}
+
+// ===== HERO CALC =====
+function calcHero() {
+  var pv = parseFloat(document.getElementById('sl-propval').value);
+  var ltv = parseFloat(document.getElementById('sl-ltv').value) / 100;
+  var rate = parseFloat(document.getElementById('sl-rate').value) / 100 / 12;
+  var term = parseFloat(document.getElementById('sl-term').value) * 12;
+  var loan = pv * ltv;
+  var pmt = calcPMT(rate, term, loan);
+  document.getElementById('calc-monthly').textContent = fmtVND(pmt);
+  document.getElementById('calc-sub').textContent = 'Tổng vay: ' + fmtVND(loan) + ' | LTV: ' + Math.round(ltv * 100) + '%';
+  document.getElementById('sl-val-out').textContent = fmtVND(pv);
+  document.getElementById('sl-ltv-out').textContent = Math.round(ltv * 100) + '%';
+  document.getElementById('sl-rate-out').textContent = parseFloat(document.getElementById('sl-rate').value).toFixed(2) + '%';
+  document.getElementById('sl-term-out').textContent = document.getElementById('sl-term').value + ' năm';
+}
+calcHero();
+
+// ===== HEADER =====
+window.addEventListener('scroll', function() {
+  document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ===== FAQ =====
+function toggleFaq(el) {
+  var ans = el.nextElementSibling;
+  var isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(a) { a.classList.remove('open'); });
+  document.querySelectorAll('.faq-q').forEach(function(q) { q.classList.remove('open'); });
+  if (!isOpen) { ans.classList.add('open'); el.classList.add('open'); }
+}
+
+// ===== WIZARD STATE =====
+var currentStep = 1;
+var wData = {
+  name: '', cccd: '', dob: '', gender: '', phone: '', email: '', marital: '', deps: '', addr: '',
+  jobType: '', tenure: '', salary: '', otherIncome: '', existingDebt: '', cic: '',
+  propValue: '', loanAmount: '', loanTerm: '', ratePackage: '',
+  propType: '', province: '', propAddr: '', area: '', legalStatus: '', buildYear: '', rented: '', notes: '',
+  uploads: {}
+};
+
+function getVal(id) {
+  var el = document.getElementById(id);
+  return el ? el.value : '';
+}
+
+function getRateVal(pkg) {
+  if (!pkg || pkg.indexOf('Chọn') >= 0) return 0.059;
+  if (pkg.indexOf('4.8') >= 0) return 0.048;
+  if (pkg.indexOf('5.9') >= 0) return 0.059;
+  if (pkg.indexOf('6.5') >= 0) return 0.065;
+  if (pkg.indexOf('7.2') >= 0) return 0.072;
+  if (pkg.indexOf('8.5') >= 0) return 0.085;
+  return 0.059;
+}
+
+// ===== RENDER =====
+function renderWizard() {
+  var labels = ['Cá nhân', 'Tài chính', 'Bất động sản', 'Xét duyệt'];
+  for (var i = 1; i <= 4; i++) {
+    var dot = document.getElementById('dot-' + i);
+    var lbl = document.getElementById('lbl-' + i);
+    dot.className = 'prog-dot';
+    lbl.className = 'prog-label';
+    if (i < currentStep) { dot.classList.add('done'); dot.textContent = '✓'; }
+    else if (i === currentStep) { dot.classList.add('active'); dot.textContent = i; lbl.classList.add('active'); }
+    else { dot.textContent = i; }
+    if (i < 4) {
+      var line = document.getElementById('line-' + i);
+      line.className = 'prog-line' + (i < currentStep ? ' done' : '');
+    }
+  }
+  var panel = document.getElementById('wizard-panel');
+  if (currentStep === 1) panel.innerHTML = buildStep1();
+  else if (currentStep === 2) panel.innerHTML = buildStep2();
+  else if (currentStep === 3) panel.innerHTML = buildStep3();
+  else if (currentStep === 4) { panel.innerHTML = buildStep4(); runEligibility(); }
+  attachHandlers();
+}
+
+// ===== UPLOAD HANDLER =====
+function handleUpload(inputId, zoneId, labelId) {
+  var inp = document.getElementById(inputId);
+  if (!inp) return;
+  inp.addEventListener('change', function() {
+    var zone = document.getElementById(zoneId);
+    var lbl = document.getElementById(labelId);
+    if (inp.files && inp.files[0]) {
+      zone.classList.add('uploaded');
+      if (lbl) lbl.textContent = '✓ ' + inp.files[0].name;
+      wData.uploads[inputId] = inp.files[0].name;
+    }
+  });
+}
+
+// ===== DSCR =====
+function calcDSCR() {
+  var sal = parseFloat(getVal('w-salary')) || 0;
+  var other = parseFloat(getVal('w-other-income')) || 0;
+  var debt = parseFloat(getVal('w-debt')) || 0;
+  var loanAmt = parseFloat(getVal('w-loanamt')) || 0;
+  var termStr = getVal('w-loanterm') || '20';
+  var term = parseInt(termStr.replace(/\D/g, '')) || 20;
+  var rate = getRateVal(getVal('w-ratepkg')) / 12;
+  var totalInc = sal + other;
+  var pmt = loanAmt > 0 ? calcPMT(rate, term * 12, loanAmt) : 0;
+  var totalDebt = debt + pmt;
+  var dscr = totalInc > 0 ? totalDebt / totalInc : 0;
+  var pct = Math.round(dscr * 100);
+  var el = function(id) { return document.getElementById(id); };
+  if (el('dscr-income')) el('dscr-income').textContent = totalInc > 0 ? fmtVND(totalInc) : '-- đ';
+  if (el('dscr-pmt')) el('dscr-pmt').textContent = pmt > 0 ? fmtVND(pmt) : '-- đ';
+  if (el('dscr-tdebt')) el('dscr-tdebt').textContent = totalDebt > 0 ? fmtVND(totalDebt) : '-- đ';
+  if (el('dscr-bar')) {
+    el('dscr-bar').style.width = Math.min(pct, 100) + '%';
+    el('dscr-bar').style.background = pct <= 40 ? 'var(--green)' : (pct <= 50 ? 'var(--yellow)' : 'var(--red)');
+  }
+  if (el('dscr-lbl')) {
+    if (totalInc === 0) { el('dscr-lbl').textContent = 'Nhập thu nhập và khoản vay để tính DSCR'; el('dscr-lbl').style.color = 'rgba(255,255,255,.5)'; }
+    else { el('dscr-lbl').textContent = 'DSCR: ' + pct + '% — ' + (pct <= 40 ? 'Hợp lệ (≤40%)' : (pct <= 50 ? 'Cảnh báo (40–50%)' : 'Vượt ngưỡng (>50%)')); el('dscr-lbl').style.color = pct <= 40 ? 'var(--green)' : (pct <= 50 ? 'var(--yellow)' : 'var(--red)'); }
+  }
+  var propV = parseFloat(getVal('w-propval')) || 0;
+  var ltvMsg = document.getElementById('ltv-msg');
+  if (ltvMsg && propV > 0 && loanAmt > 0) {
+    var ltvPct = (loanAmt / propV) * 100;
+    if (ltvPct > 85) { ltvMsg.textContent = 'LTV ' + ltvPct.toFixed(1) + '% vượt mức 85%. Vui lòng giảm số tiền vay.'; ltvMsg.className = 'field-msg err'; }
+    else { ltvMsg.textContent = 'LTV ' + ltvPct.toFixed(1) + '% — Hợp lệ'; ltvMsg.className = 'field-msg ok'; }
+  } else if (ltvMsg) { ltvMsg.textContent = ''; }
+}
+
+// ===== FIELD HELPERS =====
+function fieldErr(id, msg) {
+  var el = document.getElementById(id);
+  if (el) el.className = 'form-control is-error';
+  var m = document.getElementById('msg-' + id);
+  if (m) { m.textContent = msg; m.className = 'field-msg err'; }
+}
+function fieldOk(id, msg) {
+  var el = document.getElementById(id);
+  if (el) el.className = 'form-control is-ok';
+  var m = document.getElementById('msg-' + id);
+  if (m) { m.textContent = msg || ''; m.className = 'field-msg ok'; }
+}
+function fieldClear(id) {
+  var el = document.getElementById(id);
+  if (el) el.className = 'form-control';
+  var m = document.getElementById('msg-' + id);
+  if (m) { m.textContent = ''; m.className = 'field-msg'; }
+}
+
+// ===== VALIDATION =====
+function validateStep(n) {
+  var errors = [];
+  var warnings = [];
+
+  if (n === 1) {
+    var name = getVal('w-name').trim();
+    if (!name || name.length < 3 || name.indexOf(' ') < 0) { fieldErr('w-name', 'Họ tên phải có ít nhất 2 từ, tối thiểu 3 ký tự'); errors.push('Họ và tên không hợp lệ'); }
+    else fieldOk('w-name', '');
+
+    var cccd = getVal('w-cccd').trim();
+    if (!/^(\d{9}|\d{12})$/.test(cccd)) { fieldErr('w-cccd', 'Phải là 12 số (CCCD) hoặc 9 số (CMND cũ)'); errors.push('Số CCCD/CMND không hợp lệ'); }
+    else fieldOk('w-cccd', '');
+
+    var dob = getVal('w-dob');
+    if (!dob) { fieldErr('w-dob', 'Vui lòng chọn ngày sinh'); errors.push('Chưa chọn ngày sinh'); }
+    else {
+      var age = Math.floor((new Date() - new Date(dob)) / (365.25 * 24 * 3600 * 1000));
+      if (age < 18 || age > 65) { fieldErr('w-dob', 'Độ tuổi phải từ 18 đến 65 (hiện tại: ' + age + ' tuổi)'); errors.push('Độ tuổi không hợp lệ'); }
+      else fieldOk('w-dob', age + ' tuổi');
+    }
+
+    var gender = getVal('w-gender');
+    if (!gender || gender.indexOf('Chọn') >= 0) { fieldErr('w-gender', 'Vui lòng chọn giới tính'); errors.push('Chưa chọn giới tính'); }
+    else fieldOk('w-gender', '');
+
+    var phone = getVal('w-phone').trim();
+    if (!/^(0|\+84)(3|5|7|8|9)\d{8}$/.test(phone)) { fieldErr('w-phone', 'Số điện thoại không đúng định dạng Việt Nam'); errors.push('Số điện thoại không hợp lệ'); }
+    else fieldOk('w-phone', '');
+
+    var email = getVal('w-email').trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { fieldErr('w-email', 'Email không đúng định dạng'); errors.push('Email không hợp lệ'); }
+    else if (email) fieldOk('w-email', '');
+
+    var marital = getVal('w-marital');
+    if (!marital || marital.indexOf('Chọn') >= 0) { fieldErr('w-marital', 'Vui lòng chọn'); errors.push('Chưa chọn tình trạng hôn nhân'); }
+    else fieldOk('w-marital', '');
+
+    var addr = getVal('w-addr').trim();
+    if (!addr || addr.length < 10) { fieldErr('w-addr', 'Vui lòng nhập địa chỉ đầy đủ'); errors.push('Chưa nhập địa chỉ thường trú'); }
+    else fieldOk('w-addr', '');
+
+    if (!wData.uploads['up-cccd']) warnings.push('Chưa upload CCCD/CMND — có thể bổ sung sau');
+    if (!wData.uploads['up-hokh']) warnings.push('Chưa upload Hộ khẩu/KT3 — có thể bổ sung sau');
+
+    wData.name = getVal('w-name'); wData.cccd = getVal('w-cccd'); wData.dob = getVal('w-dob');
+    wData.gender = getVal('w-gender'); wData.phone = getVal('w-phone'); wData.email = getVal('w-email');
+    wData.marital = getVal('w-marital'); wData.deps = getVal('w-deps'); wData.addr = getVal('w-addr');
+  }
+
+  if (n === 2) {
+    var jobType = getVal('w-jobtype');
+    if (!jobType || jobType.indexOf('Chọn') >= 0) { fieldErr('w-jobtype', 'Vui lòng chọn loại hình công việc'); errors.push('Chưa chọn loại hình công việc'); }
+    else fieldOk('w-jobtype', '');
+
+    var tenure = getVal('w-tenure');
+    if (!tenure || tenure.indexOf('Chọn') >= 0) { fieldErr('w-tenure', 'Vui lòng chọn thâm niên'); errors.push('Chưa chọn thâm niên công tác'); }
+    else if (tenure.indexOf('6 tháng') >= 0) { fieldErr('w-tenure', 'Thâm niên tối thiểu 6 tháng'); errors.push('Thâm niên chưa đủ 6 tháng'); }
+    else fieldOk('w-tenure', '');
+
+    var sal = parseFloat(getVal('w-salary')) || 0;
+    if (!sal) { fieldErr('w-salary', 'Vui lòng nhập lương hàng tháng'); errors.push('Chưa nhập lương'); }
+    else if (sal < 15000000) { fieldErr('w-salary', 'Thu nhập tối thiểu 15 triệu VNĐ/tháng'); errors.push('Thu nhập dưới 15 triệu/tháng'); }
+    else fieldOk('w-salary', '');
+
+    var debt = getVal('w-debt');
+    if (debt === '' || isNaN(parseFloat(debt))) { fieldErr('w-debt', 'Nhập 0 nếu không có nợ hiện tại'); errors.push('Giá trị nợ không hợp lệ'); }
+    else fieldClear('w-debt');
+
+    var cic = getVal('w-cic');
+    if (!cic || cic.indexOf('Chọn') >= 0) { fieldErr('w-cic', 'Vui lòng chọn trạng thái CIC'); errors.push('Chưa chọn trạng thái CIC'); }
+    else if (cic.indexOf('Đang nợ xấu') >= 0 || cic.indexOf('3-5') >= 0) { fieldErr('w-cic', 'Nợ xấu đang hoạt động: không đủ điều kiện vay'); errors.push('CIC: Đang có nợ xấu — không thể nộp hồ sơ'); }
+    else fieldOk('w-cic', '');
+
+    var propVal = parseFloat(getVal('w-propval')) || 0;
+    var loanAmt = parseFloat(getVal('w-loanamt')) || 0;
+    if (!propVal) { fieldErr('w-propval', 'Vui lòng nhập giá trị bất động sản'); errors.push('Chưa nhập giá trị BĐS'); }
+    else fieldOk('w-propval', '');
+    if (!loanAmt) { fieldErr('w-loanamt', 'Vui lòng nhập số tiền muốn vay'); errors.push('Chưa nhập số tiền vay'); }
+    else if (propVal > 0 && loanAmt / propVal > 0.85) { fieldErr('w-loanamt', 'Số tiền vay vượt 85% GTTS (LTV: ' + Math.round(loanAmt / propVal * 100) + '%)'); errors.push('LTV vượt 85%'); }
+    else fieldOk('w-loanamt', '');
+
+    var loanTerm = getVal('w-loanterm');
+    if (!loanTerm || loanTerm.indexOf('Chọn') >= 0) { fieldErr('w-loanterm', 'Vui lòng chọn thời hạn vay'); errors.push('Chưa chọn thời hạn vay'); }
+    else fieldOk('w-loanterm', '');
+
+    var ratePkg = getVal('w-ratepkg');
+    if (!ratePkg || ratePkg.indexOf('Chọn') >= 0) { fieldErr('w-ratepkg', 'Vui lòng chọn gói lãi suất'); errors.push('Chưa chọn gói lãi suất'); }
+    else fieldOk('w-ratepkg', '');
+
+    if (!wData.uploads['up-contract']) warnings.push('Chưa upload Hợp đồng lao động — có thể bổ sung sau');
+    if (!wData.uploads['up-payslip']) warnings.push('Chưa upload Phiếu lương — có thể bổ sung sau');
+    if (!wData.uploads['up-bankstmt']) warnings.push('Chưa upload Sao kê ngân hàng — có thể bổ sung sau');
+
+    wData.jobType = jobType; wData.tenure = tenure; wData.salary = getVal('w-salary');
+    wData.otherIncome = getVal('w-other-income'); wData.existingDebt = getVal('w-debt');
+    wData.cic = cic; wData.propValue = getVal('w-propval'); wData.loanAmount = getVal('w-loanamt');
+    wData.loanTerm = loanTerm; wData.ratePackage = ratePkg;
+  }
+
+  if (n === 3) {
+    var propType = getVal('w-proptype');
+    if (!propType || propType.indexOf('Chọn') >= 0) { fieldErr('w-proptype', 'Vui lòng chọn loại BĐS'); errors.push('Chưa chọn loại bất động sản'); }
+    else fieldOk('w-proptype', '');
+
+    var province = getVal('w-province');
+    if (!province || province.indexOf('Chọn') >= 0) { fieldErr('w-province', 'Vui lòng chọn tỉnh/thành phố'); errors.push('Chưa chọn tỉnh/thành'); }
+    else fieldOk('w-province', '');
+
+    var propAddr = getVal('w-propaddr').trim();
+    if (!propAddr || propAddr.length < 10) { fieldErr('w-propaddr', 'Vui lòng nhập địa chỉ BĐS đầy đủ'); errors.push('Chưa nhập địa chỉ BĐS'); }
+    else fieldOk('w-propaddr', '');
+
+    var area = parseFloat(getVal('w-area')) || 0;
+    if (!area || area < 20) { fieldErr('w-area', 'Diện tích tối thiểu 20m²'); errors.push('Diện tích BĐS dưới 20m²'); }
+    else fieldOk('w-area', '');
+
+    var legalStatus = getVal('w-legalstatus');
+    if (!legalStatus || legalStatus.indexOf('Chọn') >= 0) { fieldErr('w-legalstatus', 'Vui lòng chọn tình trạng pháp lý'); errors.push('Chưa chọn tình trạng pháp lý'); }
+    else if (legalStatus.indexOf('Chưa') >= 0 || legalStatus.indexOf('chưa') >= 0) {
+      fieldErr('w-legalstatus', 'Tài sản chưa có Sổ đỏ/Sổ hồng không đủ điều kiện thế chấp theo Luật Đất đai 2024');
+      errors.push('Tài sản chưa có Sổ đỏ/Sổ hồng — không đủ điều kiện');
+      var errEl = document.getElementById('legal-err');
+      if (errEl) errEl.style.display = 'block';
+    } else { fieldOk('w-legalstatus', ''); var errEl2 = document.getElementById('legal-err'); if (errEl2) errEl2.style.display = 'none'; }
+
+    var rented = getVal('w-rented');
+    if (!rented || rented.indexOf('Chọn') >= 0) { fieldErr('w-rented', 'Vui lòng chọn'); errors.push('Chưa chọn tình trạng cho thuê'); }
+    else fieldOk('w-rented', '');
+
+    if (!wData.uploads['up-sodo']) errors.push('Chưa upload Sổ đỏ/Sổ hồng (bắt buộc)');
+    if (!wData.uploads['up-salecont']) errors.push('Chưa upload Hợp đồng mua bán (bắt buộc)');
+    if (!wData.uploads['up-landmap']) warnings.push('Chưa upload Bản đồ địa chính — có thể bổ sung sau');
+
+    wData.propType = propType; wData.province = province; wData.propAddr = propAddr;
+    wData.area = getVal('w-area'); wData.legalStatus = legalStatus;
+    wData.buildYear = getVal('w-buildyr'); wData.rented = rented; wData.notes = getVal('w-notes');
+  }
+
+  var sumEl = document.getElementById('val-summary');
+  var sumList = document.getElementById('val-sum-list');
+  if (sumEl && sumList) {
+    if (errors.length > 0) {
+      sumEl.classList.add('show');
+      sumList.innerHTML = errors.map(function(e) { return '<li>' + e + '</li>'; }).join('');
+    } else {
+      sumEl.classList.remove('show');
+    }
+    if (warnings.length > 0) {
+      var warnEl = document.getElementById('warn-summary');
+      if (warnEl) {
+        warnEl.style.display = 'block';
+        warnEl.innerHTML = '<h5 style="color:var(--yellow);font-size:13px;margin-bottom:8px;">Cảnh báo (có thể bổ sung sau)</h5>' +
+          '<ul>' + warnings.map(function(w) { return '<li style="font-size:12px;color:#8a6000;padding-left:14px;position:relative;"><span style="position:absolute;left:0;">•</span>' + w + '</li>'; }).join('') + '</ul>';
+      }
+    }
+  }
+  return errors.length === 0;
+}
+
+// ===== ELIGIBILITY =====
+function runEligibility() {
+  var criteria = [];
+
+  var dob = wData.dob;
+  var age = dob ? Math.floor((new Date() - new Date(dob)) / (365.25 * 24 * 3600 * 1000)) : 0;
+  criteria.push({ name: '1. Độ tuổi 18–65', status: age >= 18 && age <= 65 ? 'pass' : (age === 0 ? 'warn' : 'fail'), detail: age > 0 ? age + ' tuổi' : 'Chưa có thông tin' });
+
+  var totalInc = (parseFloat(wData.salary) || 0) + (parseFloat(wData.otherIncome) || 0);
+  criteria.push({ name: '2. Thu nhập ≥ 15 triệu VNĐ/tháng', status: totalInc >= 15000000 ? 'pass' : (totalInc === 0 ? 'warn' : 'fail'), detail: totalInc > 0 ? fmtVND(totalInc) + '/tháng' : 'Chưa có thông tin' });
+
+  var ten = wData.tenure || '';
+  var tenOk = ten.indexOf('6-12') >= 0 || ten.indexOf('1-2') >= 0 || ten.indexOf('2-5') >= 0 || ten.indexOf('>') >= 0 || ten.indexOf('5 năm') >= 0;
+  criteria.push({ name: '3. Thâm niên công tác ≥ 6 tháng', status: tenOk ? 'pass' : (ten === '' || ten.indexOf('Chọn') >= 0 ? 'warn' : 'fail'), detail: ten || 'Chưa chọn' });
+
+  var debt = parseFloat(wData.existingDebt) || 0;
+  var loanAmt = parseFloat(wData.loanAmount) || 0;
+  var loanTerm = parseInt((wData.loanTerm || '').replace(/\D/g, '')) || 20;
+  var rate = getRateVal(wData.ratePackage) / 12;
+  var pmt = loanAmt > 0 ? calcPMT(rate, loanTerm * 12, loanAmt) : 0;
+  var dscr = totalInc > 0 ? (debt + pmt) / totalInc : 0;
+  criteria.push({ name: '4. DSCR ≤ 40%', status: dscr === 0 ? 'warn' : (dscr <= 0.4 ? 'pass' : 'fail'), detail: dscr > 0 ? Math.round(dscr * 100) + '%' : 'Chưa đủ dữ liệu' });
+
+  var cic = wData.cic || '';
+  var cicSt = (cic.indexOf('Đang') >= 0 || cic.indexOf('3-5') >= 0) ? 'fail' : (cic.indexOf('trong 12') >= 0 ? 'warn' : (cic && cic.indexOf('Chọn') < 0 ? 'pass' : 'warn'));
+  criteria.push({ name: '5. Trạng thái CIC', status: cicSt, detail: cic || 'Chưa chọn' });
+
+  var legal = wData.legalStatus || '';
+  var legalSt = (legal.indexOf('Chưa') >= 0 || legal.indexOf('chưa') >= 0) ? 'fail' : (legal.indexOf('đang') >= 0 || legal.indexOf('hoàn thiện') >= 0 ? 'warn' : (legal && legal.indexOf('Chọn') < 0 ? 'pass' : 'warn'));
+  criteria.push({ name: '6. Pháp lý tài sản', status: legalSt, detail: legal || 'Chưa chọn' });
+
+  var propV = parseFloat(wData.propValue) || 0;
+  var ltv = propV > 0 ? (loanAmt / propV) * 100 : 0;
+  criteria.push({ name: '7. LTV ≤ 85%', status: ltv === 0 ? 'warn' : (ltv <= 85 ? 'pass' : 'fail'), detail: ltv > 0 ? Math.round(ltv) + '%' : 'Chưa đủ dữ liệu' });
+
+  var reqFiles = ['up-cccd', 'up-hokh', 'up-contract', 'up-payslip', 'up-bankstmt', 'up-sodo', 'up-salecont'];
+  var uploaded = reqFiles.filter(function(k) { return wData.uploads[k]; }).length;
+  criteria.push({ name: '8. Hồ sơ bắt buộc đã nộp', status: uploaded === reqFiles.length ? 'pass' : 'warn', detail: uploaded + '/' + reqFiles.length + ' tài liệu đã upload' });
+
+  var passCount = criteria.filter(function(c) { return c.status === 'pass'; }).length;
+  var failCount = criteria.filter(function(c) { return c.status === 'fail'; }).length;
+
+  var grid = document.getElementById('elig-grid');
+  if (grid) {
+    grid.innerHTML = criteria.map(function(c) {
+      var badge = c.status === 'pass' ? '<span class="elig-badge pass">Đạt</span>' : (c.status === 'fail' ? '<span class="elig-badge fail">Không đạt</span>' : '<span class="elig-badge warn">Lưu ý</span>');
+      return '<div class="elig-item"><div><div class="elig-name">' + c.name + '</div><div class="elig-detail">' + c.detail + '</div></div>' + badge + '</div>';
+    }).join('');
+  }
+
+  var vc = document.getElementById('verdict-card');
+  if (vc) {
+    vc.style.display = 'block';
+    if (failCount > 0) {
+      vc.className = 'verdict-card red';
+      vc.innerHTML = '<div class="verdict-icon">❌</div><div style="font-size:18px;font-weight:700;color:var(--red);margin-bottom:6px;">Hồ sơ chưa đủ điều kiện</div><div style="font-size:14px;color:#c0392b;">Có ' + failCount + ' tiêu chí không đạt. Vui lòng điều chỉnh thông tin trước khi nộp.</div>';
+    } else if (passCount >= 5) {
+      vc.className = 'verdict-card green';
+      vc.innerHTML = '<div class="verdict-icon">✅</div><div style="font-size:18px;font-weight:700;color:var(--green);margin-bottom:6px;">Hồ sơ đủ điều kiện sơ bộ!</div><div style="font-size:14px;color:#1a8a4f;">Đạt ' + passCount + '/8 tiêu chí. Sẵn sàng nộp hồ sơ.</div>';
+    } else {
+      vc.className = 'verdict-card yellow';
+      vc.innerHTML = '<div class="verdict-icon">⚠️</div><div style="font-size:18px;font-weight:700;color:var(--yellow);margin-bottom:6px;">Cần bổ sung thêm thông tin</div><div style="font-size:14px;color:#8a6000;">Đạt ' + passCount + '/8 tiêu chí. Hãy bổ sung thông tin còn thiếu.</div>';
+    }
+  }
+}
+
+// ===== BUILD STEPS =====
+function summaryHTML() {
+  return '<div class="val-summary" id="val-summary"><h5>Vui lòng kiểm tra các lỗi sau:</h5><ul id="val-sum-list"></ul></div>' +
+    '<div id="warn-summary" style="background:#fff8e6;border:1px solid var(--yellow);border-radius:8px;padding:14px;margin-bottom:16px;display:none;"></div>';
+}
+function navHTML(back, isSubmit) {
+  var backBtn = back ? '<button class="btn-back" onclick="goBack()">← Quay lại</button>' : '<div></div>';
+  var fwdBtn = isSubmit ? '<button class="btn-next btn-submit" onclick="doSubmit()">Nộp hồ sơ ✓</button>' : '<button class="btn-next" onclick="goNext()">Tiếp theo →</button>';
+  return '<div class="wizard-nav">' + backBtn + fwdBtn + '</div>';
+}
+function inputHTML(label, type, id, ph, req, saved, extra) {
+  return '<div class="form-group"><label for="' + id + '">' + label + (req ? ' <span class="req">*</span>' : '') + '</label>' +
+    '<input class="form-control" type="' + type + '" id="' + id + '" placeholder="' + ph + '" value="' + (saved || '') + '" ' + (extra || '') + '>' +
+    '<div class="field-msg" id="msg-' + id + '"></div></div>';
+}
+function selectHTML(label, id, opts, req, saved) {
+  var s = '<div class="form-group"><label for="' + id + '">' + label + (req ? ' <span class="req">*</span>' : '') + '</label><select class="form-control" id="' + id + '">';
+  opts.forEach(function(o) { s += '<option' + (o === (saved || '') ? ' selected' : '') + '>' + o + '</option>'; });
+  return s + '</select><div class="field-msg" id="msg-' + id + '"></div></div>';
+}
+function uploadZone(inputId, zoneId, labelId, icon, lbl, req) {
+  var uploaded = wData.uploads[inputId];
+  var cls = 'upload-zone' + (uploaded ? ' uploaded' : '');
+  var badgeCls = req ? 'req' : 'opt';
+  var badgeTxt = req ? 'Bắt buộc' : 'Không bắt buộc';
+  return '<div class="' + cls + '" id="' + zoneId + '">' +
+    '<input type="file" id="' + inputId + '" accept="image/*,.pdf">' +
+    '<div class="upload-icon">' + icon + '</div>' +
+    '<div class="upload-lbl" id="' + labelId + '">' + (uploaded ? '✓ ' + uploaded : lbl) + '</div>' +
+    '<span class="upload-badge ' + badgeCls + '">' + badgeTxt + '</span>' +
+    '<div class="upload-hint">Ảnh/PDF, tối đa 5MB</div>' +
+    '</div>';
+}
+
+function buildStep1() {
+  return '<div class="panel-title">Bước 1: Thông tin nhân thân</div>' +
+    '<div class="panel-sub">Theo Luật Phòng chống rửa tiền 14/2022/QH15 — Vui lòng điền đầy đủ.</div>' +
+    summaryHTML() +
+    '<div class="form-grid">' +
+    inputHTML('Họ và tên', 'text', 'w-name', 'Nguyễn Văn An', true, wData.name) +
+    inputHTML('Số CCCD/CMND', 'text', 'w-cccd', '12 hoặc 9 chữ số', true, wData.cccd) +
+    inputHTML('Ngày sinh', 'date', 'w-dob', '', true, wData.dob) +
+    selectHTML('Giới tính', 'w-gender', ['Chọn giới tính', 'Nam', 'Nữ', 'Khác'], true, wData.gender) +
+    inputHTML('Số điện thoại', 'tel', 'w-phone', '0901234567', true, wData.phone) +
+    inputHTML('Email', 'email', 'w-email', 'email@example.com', false, wData.email) +
+    selectHTML('Tình trạng hôn nhân', 'w-marital', ['Chọn...', 'Độc thân', 'Đã kết hôn', 'Ly hôn', 'Góa'], true, wData.marital) +
+    inputHTML('Số người phụ thuộc', 'number', 'w-deps', '0', false, wData.deps, 'min="0" max="10"') +
+    '<div class="form-group full"><label for="w-addr">Địa chỉ thường trú <span class="req">*</span></label><input class="form-control" type="text" id="w-addr" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" value="' + (wData.addr || '') + '"><div class="field-msg" id="msg-w-addr"></div></div>' +
+    '</div>' +
+    '<div style="margin:20px 0 8px;font-size:13px;font-weight:700;color:var(--navy);">Tải lên giấy tờ tùy thân</div>' +
+    '<div class="upload-zones" style="grid-template-columns:1fr 1fr;">' +
+    uploadZone('up-cccd', 'uz-cccd', 'uz-cccd-lbl', '📄', 'CCCD/CMND 2 mặt', true) +
+    uploadZone('up-hokh', 'uz-hokh', 'uz-hokh-lbl', '🏠', 'Hộ khẩu / KT3', true) +
+    '</div>' +
+    navHTML(false, false);
+}
+
+function buildStep2() {
+  return '<div class="panel-title">Bước 2: Tài chính & Thu nhập</div>' +
+    '<div class="panel-sub">Thông tin tài chính xét theo Thông tư 21/VBHN-NHNN 2024.</div>' +
+    summaryHTML() +
+    '<div class="form-grid">' +
+    selectHTML('Loại hình công việc', 'w-jobtype', ['Chọn...', 'Nhân viên văn phòng', 'Kỹ sư / IT', 'Giáo viên / Y tế', 'Doanh nhân / Tự kinh doanh', 'Công chức / Viên chức', 'Lao động tự do'], true, wData.jobType) +
+    selectHTML('Thâm niên công tác', 'w-tenure', ['Chọn...', '< 6 tháng', '6–12 tháng', '1–2 năm', '2–5 năm', '> 5 năm'], true, wData.tenure) +
+    inputHTML('Lương hàng tháng (VNĐ)', 'number', 'w-salary', 'VD: 20000000', true, wData.salary, 'min="0"') +
+    inputHTML('Thu nhập khác/tháng (VNĐ)', 'number', 'w-other-income', 'Nếu có (không bắt buộc)', false, wData.otherIncome, 'min="0"') +
+    inputHTML('Tổng nợ hiện tại/tháng (VNĐ)', 'number', 'w-debt', '0 nếu không có', true, wData.existingDebt, 'min="0"') +
+    selectHTML('Trạng thái CIC', 'w-cic', ['Chọn...', 'Sạch — Không nợ xấu', 'Đã tất toán trước 12 tháng', 'Đã tất toán trong 12 tháng', 'Đang nợ xấu (nhóm 3–5)'], true, wData.cic) +
+    '</div>' +
+    '<div class="dscr-panel">' +
+    '<h5>🧮 Bộ tính DSCR tự động</h5>' +
+    '<div class="dscr-row"><span>Tổng thu nhập/tháng</span><span id="dscr-income">-- đ</span></div>' +
+    '<div class="dscr-row"><span>Trả góp ước tính</span><span id="dscr-pmt">-- đ</span></div>' +
+    '<div class="dscr-row"><span>Tổng nghĩa vụ nợ</span><span id="dscr-tdebt">-- đ</span></div>' +
+    '<div class="dscr-bar-wrap"><div class="dscr-bar" id="dscr-bar"></div></div>' +
+    '<div class="dscr-label" id="dscr-lbl">Nhập thu nhập và khoản vay để tính DSCR</div>' +
+    '</div>' +
+    '<div class="form-grid">' +
+    inputHTML('Giá trị bất động sản (VNĐ)', 'number', 'w-propval', 'VD: 3000000000', true, wData.propValue, 'min="0"') +
+    inputHTML('Số tiền muốn vay (VNĐ)', 'number', 'w-loanamt', 'Tối đa 85% GTTS', true, wData.loanAmount, 'min="0"') +
+    selectHTML('Thời hạn vay', 'w-loanterm', ['Chọn...', '5 năm', '10 năm', '15 năm', '20 năm', '25 năm', '30 năm'], true, wData.loanTerm) +
+    selectHTML('Gói lãi suất', 'w-ratepkg', ['Chọn gói lãi suất', 'Ưu đãi Vàng — 5.9%/năm', 'Cân bằng — 6.5%/năm', 'Dài hạn — 7.2%/năm', 'Linh hoạt Max — 8.5%/năm', 'Nhà ở xã hội — 4.8%/năm'], true, wData.ratePackage) +
+    '</div>' +
+    '<div id="ltv-msg" class="field-msg" style="margin-bottom:12px;"></div>' +
+    '<div style="margin:8px 0;font-size:13px;font-weight:700;color:var(--navy);">Tải lên hồ sơ tài chính</div>' +
+    '<div class="upload-zones" style="grid-template-columns:1fr 1fr 1fr;">' +
+    uploadZone('up-contract', 'uz-contract', 'uz-contract-lbl', '📄', 'Hợp đồng lao động', true) +
+    uploadZone('up-payslip', 'uz-payslip', 'uz-payslip-lbl', '💵', 'Phiếu lương 3–6 tháng', true) +
+    uploadZone('up-bankstmt', 'uz-bankstmt', 'uz-bankstmt-lbl', '🏦', 'Sao kê ngân hàng 3 tháng', true) +
+    '</div>' +
+    navHTML(true, false);
+}
+
+function buildStep3() {
+  var provinces = ['Chọn tỉnh/thành', 'Hà Nội', 'TP. Hồ Chí Minh', 'Đà Nẵng', 'Hải Phòng', 'Cần Thơ', 'Bình Dương', 'Đồng Nai', 'Khánh Hòa', 'Quảng Ninh'];
+  var propTypes = ['Chọn loại BĐS', 'Nhà ở riêng lẻ', 'Căn hộ chung cư', 'Đất ở', 'Đất nông nghiệp', 'Nhà phố liền kề', 'Biệt thự'];
+  return '<div class="panel-title">Bước 3: Bất động sản thế chấp</div>' +
+    '<div class="panel-sub">Thông tin tài sản theo Luật Nhà ở 2023 và Luật Đất đai 2024.</div>' +
+    summaryHTML() +
+    '<div class="form-grid">' +
+    selectHTML('Loại bất động sản', 'w-proptype', propTypes, true, wData.propType) +
+    selectHTML('Tỉnh/Thành phố', 'w-province', provinces, true, wData.province) +
+    '<div class="form-group full"><label for="w-propaddr">Địa chỉ bất động sản <span class="req">*</span></label><input class="form-control" type="text" id="w-propaddr" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" value="' + (wData.propAddr || '') + '"><div class="field-msg" id="msg-w-propaddr"></div></div>' +
+    inputHTML('Diện tích (m²)', 'number', 'w-area', 'Tối thiểu 20m²', true, wData.area, 'min="1"') +
+    selectHTML('Tình trạng pháp lý', 'w-legalstatus', ['Chọn...', 'Có đầy đủ Sổ đỏ/Sổ hồng', 'Đang hoàn thiện thủ tục', 'Chưa có sổ'], true, wData.legalStatus) +
+    inputHTML('Năm xây dựng', 'number', 'w-buildyr', 'VD: 2015', false, wData.buildYear, 'min="1900" max="2026"') +
+    selectHTML('Tình trạng cho thuê', 'w-rented', ['Chọn...', 'Không cho thuê', 'Đang cho thuê'], true, wData.rented) +
+    '</div>' +
+    '<div id="legal-err" class="field-msg err" style="margin-bottom:8px;display:none;">Tài sản chưa có Sổ đỏ/Sổ hồng không đủ điều kiện thế chấp theo Luật Đất đai 2024!</div>' +
+    '<div style="margin:12px 0 8px;font-size:13px;font-weight:700;color:var(--navy);">Tải lên hồ sơ bất động sản</div>' +
+    '<div class="upload-zones" style="grid-template-columns:1fr 1fr 1fr;">' +
+    uploadZone('up-sodo', 'uz-sodo', 'uz-sodo-lbl', '📜', 'Sổ đỏ / Sổ hồng', true) +
+    uploadZone('up-salecont', 'uz-salecont', 'uz-salecont-lbl', '📝', 'Hợp đồng mua bán', true) +
+    uploadZone('up-landmap', 'uz-landmap', 'uz-landmap-lbl', '🗺️', 'Bản đồ địa chính', false) +
+    '</div>' +
+    '<div class="form-group" style="margin-top:20px;"><label>Ghi chú thêm</label><textarea class="form-control" id="w-notes" rows="3" placeholder="Thông tin bổ sung về tài sản (nếu có)..." style="resize:vertical;">' + (wData.notes || '') + '</textarea></div>' +
+    navHTML(true, false);
+}
+
+function buildStep4() {
+  var ref = 'SL-2026-' + Math.floor(100000 + Math.random() * 900000);
+  return '<div class="panel-title">Bước 4: Kiểm định & Nộp hồ sơ</div>' +
+    '<div class="panel-sub">Hệ thống tự động kiểm tra 8 tiêu chí theo TT 21/VBHN-NHNN 2024.</div>' +
+    '<div id="elig-grid" class="elig-grid"><div style="text-align:center;color:var(--gray-400);padding:20px;">Đang kiểm định...</div></div>' +
+    '<div id="verdict-card" class="verdict-card" style="display:none;"></div>' +
+    '<div class="check-group">' +
+    '<div class="check-item"><input type="checkbox" id="chk1"><label for="chk1">Tôi xác nhận tất cả thông tin đã cung cấp là trung thực và chính xác theo năng lực của mình.</label></div>' +
+    '<div class="check-item"><input type="checkbox" id="chk2"><label for="chk2">Tôi đồng ý để Smartlend thu thập và xử lý dữ liệu cá nhân theo quy định KYC/AML của <strong>Luật Phòng chống rửa tiền 14/2022/QH15</strong>.</label></div>' +
+    '<div class="check-item"><input type="checkbox" id="chk3"><label for="chk3">Tôi đồng ý với Điều khoản dịch vụ và xử lý hồ sơ điện tử theo <strong>Luật Giao dịch điện tử 20/2023/QH15</strong>.</label></div>' +
+    '</div>' +
+    '<div id="chk-err" class="field-msg err" style="display:none;margin-bottom:12px;">Vui lòng tích chọn tất cả 3 ô đồng ý để nộp hồ sơ.</div>' +
+    '<input type="hidden" id="submit-ref" value="' + ref + '">' +
+    navHTML(true, true);
+}
+
+// ===== NAV =====
+function goNext() {
+  if (!validateStep(currentStep)) return;
+  currentStep++;
+  renderWizard();
+  document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+}
+function goBack() {
+  currentStep--;
+  renderWizard();
+  document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+}
+function doSubmit() {
+  var chk1 = document.getElementById('chk1');
+  var chk2 = document.getElementById('chk2');
+  var chk3 = document.getElementById('chk3');
+  var errEl = document.getElementById('chk-err');
+  if (!chk1 || !chk2 || !chk3 || !chk1.checked || !chk2.checked || !chk3.checked) {
+    if (errEl) errEl.style.display = 'block';
+    return;
+  }
+  var ref = document.getElementById('submit-ref') ? document.getElementById('submit-ref').value : 'SL-2026-000000';
+  showSuccess(ref);
+}
+
+function showSuccess(ref) {
+  document.getElementById('progress-bar').style.display = 'none';
+  var panel = document.getElementById('wizard-panel');
+  panel.innerHTML = '<div class="success-screen">' +
+    '<div class="success-anim">🎉</div>' +
+    '<h2 style="color:var(--navy);margin-bottom:10px;">Hồ sơ đã nộp thành công!</h2>' +
+    '<p style="color:var(--gray-600);margin-bottom:20px;">Cảm ơn bạn đã sử dụng Smartlend. Chuyên viên sẽ liên hệ trong 24 giờ làm việc.</p>' +
+    '<div class="ref-code"><p>Mã hồ sơ của bạn</p><h3>' + ref + '</h3></div>' +
+    '<div class="next-cards">' +
+    '<div class="next-card"><div class="nc-icon">📱</div><h5>Theo dõi hồ sơ</h5><p>Đăng nhập app Smartlend để kiểm tra trạng thái hồ sơ theo thời gian thực.</p></div>' +
+    '<div class="next-card"><div class="nc-icon">📞</div><h5>Hotline hỗ trợ</h5><p>Liên hệ 1900 1234 (24/7) nếu cần tư vấn thêm về hồ sơ vay.</p></div>' +
+    '<div class="next-card"><div class="nc-icon">📋</div><h5>Bổ sung tài liệu</h5><p>Chuyên viên sẽ thông báo nếu cần bổ sung thêm tài liệu qua email hoặc SMS.</p></div>' +
+    '<div class="next-card"><div class="nc-icon">⏱️</div><h5>Thời gian xử lý</h5><p>Kết quả thẩm định sơ bộ trong 24 giờ. Đầy đủ 5–10 ngày làm việc.</p></div>' +
+    '</div></div>';
+}
+
+// ===== ATTACH HANDLERS =====
+function attachHandlers() {
+  var uploadIds = ['up-cccd', 'up-hokh', 'up-contract', 'up-payslip', 'up-bankstmt', 'up-sodo', 'up-salecont', 'up-landmap'];
+  uploadIds.forEach(function(id) {
+    var zoneId = 'uz-' + id.replace('up-', '');
+    var lblId = zoneId + '-lbl';
+    handleUpload(id, zoneId, lblId);
+  });
+  var dscrFields = ['w-salary', 'w-other-income', 'w-debt', 'w-loanamt', 'w-loanterm', 'w-ratepkg', 'w-propval'];
+  dscrFields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.addEventListener('input', calcDSCR); el.addEventListener('change', calcDSCR); }
+  });
+  var legalEl = document.getElementById('w-legalstatus');
+  if (legalEl) {
+    legalEl.addEventListener('change', function() {
+      var errEl = document.getElementById('legal-err');
+      if (errEl) errEl.style.display = (legalEl.value.indexOf('Chưa') >= 0 || legalEl.value.indexOf('chưa') >= 0) ? 'block' : 'none';
+    });
+  }
+  var dobEl = document.getElementById('w-dob');
+  if (dobEl) {
+    dobEl.addEventListener('change', function() {
+      if (dobEl.value) {
+        var age = Math.floor((new Date() - new Date(dobEl.value)) / (365.25 * 24 * 3600 * 1000));
+        if (age < 18 || age > 65) fieldErr('w-dob', 'Độ tuổi phải từ 18–65 (hiện tại: ' + age + ' tuổi)');
+        else fieldOk('w-dob', age + ' tuổi');
+      }
+    });
+  }
+  if (currentStep === 2) calcDSCR();
+}
+
+// ===== INIT =====
+renderWizard();
+</script>
+</body>
+</html>
